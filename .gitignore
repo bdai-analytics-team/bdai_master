@@ -2,4 +2,4 @@
 __pycache__
 *.csv
 *.json
-*.txt
+.idea

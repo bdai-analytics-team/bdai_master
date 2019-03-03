@@ -18,3 +18,12 @@ Each feature will require a new branch to be made.  For example, if I was going 
 4. Have someone else review my pull request
 5. Merge my code into dev
 6. Wait for dev to be periodically be merged into master
+
+## Using environments
+The purpose of an environment is to isolate the dependencies of a particular module of code.  For example, the pipeline requires iexfinance but analysis doesn't, so it makes sense to keep that dependency separate.  To do that we'll be using Miniconda NOT virtualenv.  Here's how you get started:
+
+1. Download Miniconda
+2. Create environment `conda create -n <module-name>`
+3. Activate environment `conda activate <environment-name>`
+4. Install dependencies `pip install -r requirements.txt` for Python
+5. Once finished deactivate with `deactivate`
