@@ -9,52 +9,55 @@ import IEXScraper
 
 TICKER_FILE = 'NYSE.txt'
 
-#TODO: Separate into methods to check if EOD exists for ticker on date, retrieve and format the JSON, and upload to db
-def insert_if_exists(database, ticker, start_date):
-    json = get_historical_data(ticker, start_date, start_date)
+def format_json(ticker, json):
+    for eod_item in json:
+        json[eod_item]['ticker'] = ticker
+    return json
+
+def return_EOD_range_if_exists(ticker, start_date, end_date):
+    json = get_historical_data(ticker, start_date, end_date)
     string_date = IEXScraper.format_date(start_date)
-    if IEXScraper.format_date(start_date) in json:
-        json = json[IEXScraper.format_date(start_date)]
-        json['name'] = ticker
-        database[string_date].insert(json)
-        return True
-    return False
+    if string_date in json:
+        formatted_json = format_json(ticker, json)
+        return formatted_json
+    return {}
 
-
-#Uploads the EOD data for available NYSE companies on the given date
-def upload_single_day_eod(database, date):
-    if str(date.today()) not in database.collection_names():
-        database.create_collection(str(date))
-        database[str(date)].create_index('name')
-    tickers = IEXScraper.get_ticker_list(TICKER_FILE)
-    for ticker in tickers:
-        insert_chart = insert_if_exists(database, ticker, date)
-        if insert_chart:
-            print('Insert succeeded on: ' + ticker)
-        else:
-            print('Insert failed on: ' + ticker)
-        time.sleep(0.01)
-
-#Uploads the EOD data for available NYSE companies in the given date range.
-def upload_range_eod(database, start_date, end_date):
-    #TODO 0: Factor code in this method to a daterange() method
+def daterange(start_date, end_date):
+    date_range = []
     day = start_date.day
     month = start_date.month
     year = start_date.year
     while day != end_date.day and month != end_date.month and year != end_date.year:
-        upload_single_day_eod(database, date(year, month, day))
         day = (day % IEXScraper.get_month_length(month, year)) + 1
         if day == 1:
-            month = (month % (365 + int(year / 4))) + 1
+            month = (month + 1) % 12
             if month == 1:
                 year += 1
+        date_range.append(IEXScraper.format_date(date(month, day, year)))
+    return date_range
 
+def upload_range_eod_single_company(database, ticker, start_date, end_date):
+    eod_json = return_EOD_range_if_exists(ticker, start_date, end_date)
+    collection_name = ticker + '-EOD'
+    if collection_name not in database.collection_names():
+        database.create_collection(collection_name)
+    if len(eod_json) > 0:
+        for eod_day in eod_json:
+            print(eod_day)
+            database[collection_name].insert(eod_json[eod_day])
 
+#Uploads the EOD data for available NYSE companies in the given date range.
+def upload_range_eod_total_companies(database, start_date, end_date):
+    tickers = IEXScraper.get_ticker_list(TICKER_FILE)
+    for ticker in tickers:
+        upload_range_eod_single_company(database, ticker, start_date, end_date)
+
+#Gets the EOD data for company specified by ticker on given date
 def get_company_eod_data(database, ticker, date):
     return database[date].find(name=ticker)
 
 #connect to MongoDB, change the << MONGODB URL >> to reflect your own connection string
 #TODO: take user input for dates
 client = MongoClient()
-db=client.BDAI
-upload_range_eod(db, date(2018, 12, 19), date(2019, 2, 18))
+db=client.BDAIEOD
+upload_range_eod_total_companies(db, date(2016, 12, 19), date(2019, 2, 18))
