@@ -9,16 +9,17 @@ import IEXScraper
 
 TICKER_FILE = 'NYSE.txt'
 
-def format_json(ticker, json):
+def format_EOD_json(json, ticker, date):
     for eod_item in json:
         json[eod_item]['ticker'] = ticker
+        json[eod_item]['date'] = date
     return json
 
 def return_EOD_range_if_exists(ticker, start_date, end_date):
     json = get_historical_data(ticker, start_date, end_date)
     string_date = IEXScraper.format_date(start_date)
     if string_date in json:
-        formatted_json = format_json(ticker, json)
+        formatted_json = format_EOD_json(json, ticker, string_date)
         return formatted_json
     return {}
 
@@ -54,10 +55,11 @@ def upload_range_eod_total_companies(database, start_date, end_date):
 
 #Gets the EOD data for company specified by ticker on given date
 def get_company_eod_data(database, ticker, date):
-    return database[date].find(name=ticker)
+    return database[ticker + '-EOD'].find_one()
 
 #connect to MongoDB, change the << MONGODB URL >> to reflect your own connection string
 #TODO: take user input for dates
 client = MongoClient()
-db=client.BDAIEOD
+db=client.BDAI_EOD
 upload_range_eod_total_companies(db, date(2016, 12, 19), date(2019, 2, 18))
+print(get_company_eod_data(db, 'JPM', date(2017, 12, 12)))
