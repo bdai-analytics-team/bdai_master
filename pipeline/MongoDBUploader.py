@@ -1,4 +1,5 @@
 import time
+import sys
 from datetime import datetime
 from datetime import date
 import pymongo
@@ -7,7 +8,8 @@ from iexfinance.stocks import get_historical_data
 from iexfinance.refdata import get_symbols
 import IEXScraper
 
-TICKER_FILE = 'NYSE.txt'
+TICKER_FILE = sys.argv[1]
+print("Reading stock data from " + TICKER_FILE)
 
 def format_EOD_json(json, ticker, date):
     for eod_item in json:
@@ -39,13 +41,13 @@ def daterange(start_date, end_date):
 
 def upload_range_eod_single_company(database, ticker, start_date, end_date):
     eod_json = return_EOD_range_if_exists(ticker, start_date, end_date)
-    collection_name = ticker + '-EOD'
-    if collection_name not in database.collection_names():
+    collection_name = 'EOD'
+    print(f"Inserting data for {ticker}")
+    if collection_name not in database.list_collection_names():
         database.create_collection(collection_name)
     if len(eod_json) > 0:
         for eod_day in eod_json:
-            print(eod_day)
-            database[collection_name].insert(eod_json[eod_day])
+            database[collection_name].insert_one(eod_json[eod_day])
 
 #Uploads the EOD data for available NYSE companies in the given date range.
 def upload_range_eod_total_companies(database, start_date, end_date):
@@ -55,11 +57,11 @@ def upload_range_eod_total_companies(database, start_date, end_date):
 
 #Gets the EOD data for company specified by ticker on given date
 def get_company_eod_data(database, ticker, date):
-    return database[ticker + '-EOD'].find_one()
+    return database['EOD'].find_one({'ticker': ticker})
 
 #connect to MongoDB, change the << MONGODB URL >> to reflect your own connection string
 #TODO: take user input for dates
-client = MongoClient()
+client = MongoClient("mongodb+srv://admin:admin@bdaidatabase-l1mg5.mongodb.net/test?retryWrites=true")
 db=client.BDAI_EOD
-upload_range_eod_total_companies(db, date(2016, 12, 19), date(2019, 2, 18))
-print(get_company_eod_data(db, 'JPM', date(2017, 12, 12)))
+upload_range_eod_total_companies(db, date(2015, 4, 10), date(2019, 4, 10))
+print("Finished!")
