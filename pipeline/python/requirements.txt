@@ -115,7 +115,7 @@ pytz==2018.9
 pytzdata==2018.9
 pywin32==223
 pywinpty==0.5.5
-PyYAML==3.13
+PyYAML==5.1
 pyzmq==18.0.0
 qtconsole==4.4.3
 requests==2.21.0
