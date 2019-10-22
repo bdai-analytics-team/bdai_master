@@ -3,6 +3,7 @@
 
 import alpaca_trade_api as tradeapi
 
+### MUST BE REGENERATED
 API_KEY = "PKL0QGF1MJDFXNFEPUDI"
 API_SECRET = "L0XZ2u3KrWIa2w3iPnRvXpuojn6tLr5jel9GfnCs"
 APCA_API_BASE_URL = "https://paper-api.alpaca.markets"
