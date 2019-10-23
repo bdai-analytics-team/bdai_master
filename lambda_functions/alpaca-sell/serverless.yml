@@ -1,0 +1,19 @@
+service: alpaca-sell
+
+provider:
+  name: aws
+  runtime: python3.7
+
+functions:
+  alpaca-sell:
+    # Always <filename>.<function-to-execute>
+    handler: handler.sell
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    usePipenv: true
+    # True if using numpy, pandas, or other package with C dependencies. Requires Docker installation
+    dockerizePip: false

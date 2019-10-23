@@ -58,8 +58,8 @@ def sellStock(symbolCompany, quantity, typeW, API_KEY_sell, API_SECRET_sell, pri
                     type = typeW,
                     time_in_force = time_force, 
                     limit_price = price)
-                print("Success! You sold {} shares of {} at the price ${}.".format(quantity, symbolCompany, price))
-                print("You have {} shares of {} remaining.".format(shares_left, symbolCompany))
+                message = "Success! You sold {} shares of {} at the price ${}.".format(quantity, symbolCompany, price)
+                message = "You have {} shares of {} remaining.".format(shares_left, symbolCompany)
             else:
                 api.submit_order(
                     symbol = symbolCompany,
@@ -67,12 +67,10 @@ def sellStock(symbolCompany, quantity, typeW, API_KEY_sell, API_SECRET_sell, pri
                     side = sell, 
                     type = typeW,
                     time_in_force = time_force)
-                print("Success! You sold {} shares of {} at the market price.".format(quantity, symbolCompany))
-                print("You have {} shares of {} remaining.".format(shares_left, symbolCompany))
+                message = "Success! You sold {} shares of {} at the market price.".format(quantity, symbolCompany)
+                message = "You have {} shares of {} remaining.".format(shares_left, symbolCompany)
         else:
-            print("ERROR! You have {} shares of {}, and you are trying to sell {} shares of {}.".format(qty_stock, symbolCompany, quantity, symbolCompany))
+            message = "ERROR! You have {} shares of {}, and you are trying to sell {} shares of {}.".format(qty_stock, symbolCompany, quantity, symbolCompany)
     else:
-        print("{} is not tradeable at this time.".format(symbolCompany))
-    return
-
-# sellStock('HAS', 10, 'market', API_KEY, API_SECRET)
+        message = "{} is not tradeable at this time.".format(symbolCompany)
+    return message
