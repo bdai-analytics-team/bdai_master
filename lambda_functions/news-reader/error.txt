@@ -1,0 +1,41 @@
+Serverless: Generating requirements.txt from Pipfile...
+Serverless: Parsed requirements.txt from Pipfile in /home/enan/bdai_master/lambda_functions/news-reader/.serverless/requirements.txt...
+Serverless: Installing requirements from /home/enan/.cache/serverless-python-requirements/6950f7741d7b30ef0abb17f9eacfb7d86fd62eac4d79ec9d4ea99275bb93e785_slspyc/requirements.txt ...
+Serverless: Docker Image: lambci/lambda:build-python3.6
+ 
+  Error --------------------------------------------------
+ 
+  Error: Unknown path format /.cache/serverless-python-requirements/6950f7741d7b30ef0abb17f9eacfb7d86fd62eac4d79ec9d4ea99275bb93e785_slspyc...
+      at getBindPath (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/serverless-python-requirements/lib/docker.js:132:11)
+      at installRequirements (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/serverless-python-requirements/lib/pip.js:193:39)
+      at installRequirementsIfNeeded (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/serverless-python-requirements/lib/pip.js:551:3)
+      at ServerlessPythonRequirements.installAllRequirements (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/serverless-python-requirements/lib/pip.js:630:29)
+      at ServerlessPythonRequirements.tryCatcher (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/bluebird/js/release/util.js:16:23)
+      at Promise._settlePromiseFromHandler (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/bluebird/js/release/promise.js:547:31)
+      at Promise._settlePromise (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/bluebird/js/release/promise.js:604:18)
+      at Promise._settlePromise0 (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/bluebird/js/release/promise.js:649:10)
+      at Promise._settlePromises (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/bluebird/js/release/promise.js:729:18)
+      at _drainQueueStep (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/bluebird/js/release/async.js:93:12)
+      at _drainQueue (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/bluebird/js/release/async.js:86:9)
+      at Async._drainQueues (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/bluebird/js/release/async.js:102:5)
+      at Immediate.Async.drainQueues (/home/enan/bdai_master/lambda_functions/news-reader/node_modules/bluebird/js/release/async.js:15:14)
+      at runCallback (timers.js:794:20)
+      at tryOnImmediate (timers.js:752:5)
+      at processImmediate [as _immediateCallback] (timers.js:729:5)
+ 
+     For debugging logs, run again after setting the "SLS_DEBUG=*" environment variable.
+ 
+  Get Support --------------------------------------------
+     Docs:          docs.serverless.com
+     Bugs:          github.com/serverless/serverless/issues
+     Issues:        forum.serverless.com
+ 
+  Your Environment Information ---------------------------
+     Operating System:          linux
+     Node Version:              8.10.0
+     Framework Version:         1.57.0
+     Plugin Version:            3.2.2
+     SDK Version:               2.2.1
+     Components Core Version:   1.1.2
+     Components CLI Version:    1.4.0
+ 
