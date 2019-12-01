@@ -1,8 +1,14 @@
 # Initial Setup
 Required to have python3, pip, npm, and aws-cli pre-installed and configured. See directions below to set up AWS CLI.
 If utilizing packages such as Pandas or NumPy then Docker is also required.
-Once all is set up run `sh setup.sh`
-After tools are installed activate environment with `pipenv shell` then run `pipenv install` to install dependencies into environment.
+
+Make sure you have the following things installed before proceeding:
+* Python 3.7
+* Node.js
+* Docker (If building numpy, pandas, or other packages with C dependencies)
+* Serverless CLI
+* serverless-python-requirements (install on NPM)
+* Pipenv
 
 ## Configuring AWS CLI
 To download visit: https://docs.aws.amazon.com/cli/latest/userguide/install-windows.html
