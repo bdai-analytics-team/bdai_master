@@ -120,7 +120,7 @@ pyzmq==18.0.0
 qtconsole==4.4.3
 requests==2.21.0
 rise==0.0.0
-rope==0.10.7
+rope==0.11.0
 ruamel-yaml==0.15.46
 Send2Trash==1.5.0
 setproctitle==1.1.10
