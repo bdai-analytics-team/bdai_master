@@ -17,7 +17,7 @@ colorama==0.4.1
 conda==4.6.11
 configparser==3.5.3
 croniter==0.3.29
-cryptography==2.6.1
+cryptography==3.2
 decorator==4.4.0
 defusedxml==0.5.0
 dill==0.2.9
