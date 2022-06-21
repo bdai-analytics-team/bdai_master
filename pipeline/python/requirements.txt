@@ -78,7 +78,7 @@ mistune==0.8.4
 nbconvert==5.4.1
 nbformat==4.4.0
 notebook==5.7.8
-numpy==1.16.2
+numpy==1.22.0
 numpydoc==0.8.0
 ordereddict==1.1
 packaging==19.0
